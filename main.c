@@ -8,7 +8,8 @@ int main() {
     struct linked arr = Linked();
     arr.insert_many(&arr, (int[]){0, 10, 20, 30, 40, 50, 60}, 7);
     arr.show(&arr);
+    arr.pop_index(&arr, 2);
     printf("-----\n");
-    printf("len = %d\n", arr.len(&arr));
+    arr.show(&arr);
     return 0;
 }

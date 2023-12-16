@@ -77,6 +77,7 @@ struct result pop(struct linked *n) {
     // check is one element in array
     if(n->next->next == NULL) {
         v = n->next->value;
+        free(n->next);
         n->next = NULL;
         return Result(false, v);
     }
@@ -85,6 +86,7 @@ struct result pop(struct linked *n) {
         tmp = tmp->next;
     }
     v = tmp->next->value;
+    free(tmp->next);
     tmp->next = NULL;
     return Result(false, v);
 }
@@ -94,13 +96,20 @@ struct result pop_index(struct linked *n, int index)
     // check empty
     if(n->next == NULL) return Result(true, -1);
     int v;
+    struct node *pointer_tmp;
     // check is head change head to index 1
     if(index == 0) {
         v = n->next->value;
-        if (n->next->next != NULL)
-            n->next = n->next->next;
-        else
+        if (n->next->next != NULL) {
+            // use pointer_tmp to keep address from pointer to free memory in next step
+           pointer_tmp = n->next;
+           n->next = n->next->next;
+           free(pointer_tmp);
+        }
+        else {
+            free(n->next);
             n->next = NULL;
+        }
         return Result(false, v);
     }
     struct node *tmp = n->next;
@@ -112,8 +121,11 @@ struct result pop_index(struct linked *n, int index)
     v = tmp->next->value;
     // is last index 
     if(tmp->next->next != NULL) {
+        pointer_tmp = tmp->next;
         tmp->next = tmp->next->next;
+        free(pointer_tmp);
     } else {
+        free(tmp->next);
         tmp->next = NULL;
     }
     return Result(false, v);
