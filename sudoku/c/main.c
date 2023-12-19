@@ -38,6 +38,9 @@ int get_point(int table[9][9], int x, int y) {
     for(int i = 0; i < 9; i++) {
         if(i != y && table[x][i] != 0) point++;
         if(i != x &&table[i][y] != 0) point++;
+        for(int j = 0; j < 9; j++) {
+            if(table[i][j] != 0 && (table[i][j] == table[x][j] || table[i][j] == table[y][j])) point--;
+        }
     }
     return point;
 }
@@ -47,6 +50,7 @@ int check_point(int table[9][9], int x, int y, int value) {
         if(table[x][i] == value) return 0;
         if(table[i][y] == value) return 0;
     }
+    printf("check point: table[%d][%d] = %d\n", x, y, value);
     return 1;
 }
 
@@ -161,6 +165,7 @@ int main()
                     }
                 }
                 sample = check_point(table, max[1], max[2], i);
+                continue;
                 if (sample == 1)
                 {
                     table[max[1]][max[2]] = i;
