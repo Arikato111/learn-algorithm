@@ -1,6 +1,7 @@
 struct linked
 {
     struct node *next;
+    int length;
     void (*insert)(struct linked *n, int value);
     void (*insert_many)(struct linked *n, int value[], int len);
     struct result (*get_index)(struct linked *n, int index);
@@ -24,6 +25,7 @@ void insert(struct linked *n, int value)
         n->next = (struct node*)malloc(sizeof(struct node));
         n->next->next = NULL;
         n->next->value = value;
+        n->insert++;
         return;
     }
     struct node *tmp = n->next;
@@ -34,6 +36,7 @@ void insert(struct linked *n, int value)
     tmp->next = (struct node *)malloc(sizeof(struct node));
     tmp->next->next = NULL;
     tmp->next->value = value;
+    n->insert++;
 }
 
 void insert_many(struct linked *n, int value[], int len)
@@ -44,6 +47,7 @@ void insert_many(struct linked *n, int value[], int len)
         n->next = (struct node *)malloc(sizeof(struct node));
         n->next->next = NULL;
         n->next->value = value[0];
+        n->length++;
         s++;
    }
     struct node *tmp = n->next;
@@ -55,6 +59,7 @@ void insert_many(struct linked *n, int value[], int len)
         tmp->next = (struct node *)malloc(sizeof(struct node));
         tmp->next->next = NULL;
         tmp->next->value = value[i];
+        n->length++;
     }
 }
 
@@ -79,6 +84,7 @@ struct result pop(struct linked *n) {
         v = n->next->value;
         free(n->next);
         n->next = NULL;
+        n->length--;
         return Result(false, v);
     }
     struct node *tmp = n->next;
@@ -88,6 +94,7 @@ struct result pop(struct linked *n) {
     v = tmp->next->value;
     free(tmp->next);
     tmp->next = NULL;
+    n->length--;
     return Result(false, v);
 }
 
@@ -110,6 +117,7 @@ struct result pop_index(struct linked *n, int index)
             free(n->next);
             n->next = NULL;
         }
+        n->length--;
         return Result(false, v);
     }
     struct node *tmp = n->next;
@@ -128,6 +136,7 @@ struct result pop_index(struct linked *n, int index)
         free(tmp->next);
         tmp->next = NULL;
     }
+    n->length--;
     return Result(false, v);
 }
 
@@ -180,5 +189,6 @@ struct linked Linked()
     n.set = &set;
     n.len = &len;
     n.show = &show;
+    n.length = 0;
     return n;
 }
