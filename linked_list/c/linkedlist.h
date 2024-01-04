@@ -25,7 +25,7 @@ void insert(struct linked *n, int value)
         n->next = (struct node*)malloc(sizeof(struct node));
         n->next->next = NULL;
         n->next->value = value;
-        n->insert++;
+        n->length++;
         return;
     }
     struct node *tmp = n->next;
@@ -36,7 +36,7 @@ void insert(struct linked *n, int value)
     tmp->next = (struct node *)malloc(sizeof(struct node));
     tmp->next->next = NULL;
     tmp->next->value = value;
-    n->insert++;
+    n->length++;
 }
 
 void insert_many(struct linked *n, int value[], int len)
