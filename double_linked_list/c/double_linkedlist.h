@@ -10,8 +10,8 @@ typedef struct node {
   struct node *prev;
 } node;
 
-struct node* Node(int value, struct node* prev) {
-  struct node* n = (struct node*)malloc(sizeof(struct node));
+struct node *Node(int value, struct node *prev) {
+  struct node *n = (struct node *)malloc(sizeof(struct node));
   n->value = value;
   n->next = NULL;
   n->prev = prev;
@@ -22,6 +22,7 @@ void insert(struct doub_linkd *n, int value) {
   // check if linked empty
   if (n->head == NULL) {
     n->head = Node(value, NULL);
+    n->last = n->head;
     n->length++;
     return;
   }
@@ -30,27 +31,48 @@ void insert(struct doub_linkd *n, int value) {
     tmp = tmp->next;
   }
   tmp->next = Node(value, tmp);
+  n->last = tmp->next;
   n->length++;
 }
 
-void insert_many(struct doub_linkd *n, int value[], int len)
-{
-   int s = 0;
-   // check if linked empty
-   if(n->head == NULL) {
-        n->head = Node(value[0], NULL);
-        n->length++;
-        s++;
-   }
-    struct node *tmp = n->head;
-    for (int i = s; i < len; i++) {
-        while (tmp->next != NULL)
-        {
-            tmp = tmp->next;
-        }
-        tmp->next = Node(value[i], tmp);
-        n->length++;
+void insert_many(struct doub_linkd *n, int value[], int len) {
+  int s = 0;
+  // check if linked empty
+  if (n->head == NULL) {
+    n->head = Node(value[0], NULL);
+    n->last = n->head;
+    n->length++;
+    s++;
+  }
+  struct node *tmp = n->head;
+  for (int i = s; i < len; i++) {
+    while (tmp->next != NULL) {
+      tmp = tmp->next;
     }
+    tmp->next = Node(value[i], tmp);
+    n->last = tmp->next;
+    n->length++;
+  }
+}
+
+struct result pop(struct doub_linkd *n) {
+  int v = 0;
+  // check empty
+  if (n->head == NULL) return Result(true, -1);
+  // check is one element in array
+  if (n->head->next == NULL) {
+    v = n->head->value;
+    free(n->head);
+    n->head = NULL;
+    n->length--;
+    return Result(false, v);
+  }
+  struct node *tmp = n->last->prev;
+  v = tmp->next->value;
+  free(tmp->next);
+  tmp->next = NULL;
+  n->length--;
+  return Result(false, v);
 }
 
 struct result get_index(struct doub_linkd *n, int index) {
