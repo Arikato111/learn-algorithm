@@ -2,6 +2,13 @@ typedef struct doub_linkd {
   int length;
   struct node *head;
   struct node *last;
+  void (*insert)(struct doub_linkd *n, int value);
+  void (*insert_many)(struct doub_linkd *n, int value[], int len);
+  struct result (*pop)(struct doub_linkd *n);
+  struct result (*pop_index)(struct doub_linkd *n, int index);
+  struct result (*set)(struct doub_linkd *n, int index, int value);
+  struct result (*get_index)(struct doub_linkd *n, int index);
+  void (*show)(struct doub_linkd *n);
 } doub_linkd;
 
 typedef struct node {
@@ -77,58 +84,56 @@ struct result pop(struct doub_linkd *n) {
   return Result(false, v);
 }
 
-struct result pop_index(struct doub_linkd *n, int index)
-{
-    // check empty
-    if(n->head == NULL) return Result(true, -1);
-    int v;
-    struct node *pointer_tmp;
-    // check is head change head to index 1
-    if(index == 0) {
-        v = n->head->value;
-        if (n->head->next != NULL) {
-            // use pointer_tmp to keep address from pointer to free memory in next step
-           pointer_tmp = n->head;
-           n->head = n->head->next;
-           n->length--;
-           free(pointer_tmp);
-        }
-        else {
-            free(n->head);
-            n->head = NULL;
-        }
-        n->length--;
-        return Result(false, v);
-    }
-    struct node *tmp = n->head;
-    for (int i = 1; i < index; i++) {
-        if (tmp->next == NULL)
-            return Result(true, -1);
-        tmp = tmp->next;
-    }
-    v = tmp->next->value;
-    // is last index 
-    if(tmp->next->next != NULL) {
-        pointer_tmp = tmp->next;
-        tmp->next = tmp->next->next;
-        free(pointer_tmp);
+struct result pop_index(struct doub_linkd *n, int index) {
+  // check empty
+  if (n->head == NULL) return Result(true, -1);
+  int v;
+  struct node *pointer_tmp;
+  // check is head change head to index 1
+  if (index == 0) {
+    v = n->head->value;
+    if (n->head->next != NULL) {
+      // use pointer_tmp to keep address from pointer to free memory in next
+      // step
+      pointer_tmp = n->head;
+      n->head = n->head->next;
+      n->length--;
+      free(pointer_tmp);
     } else {
-        free(tmp->next);
-        tmp->next = NULL;
-        n->last = tmp;
+      free(n->head);
+      n->head = NULL;
     }
     n->length--;
     return Result(false, v);
+  }
+  struct node *tmp = n->head;
+  for (int i = 1; i < index; i++) {
+    if (tmp->next == NULL) return Result(true, -1);
+    tmp = tmp->next;
+  }
+  v = tmp->next->value;
+  // is last index
+  if (tmp->next->next != NULL) {
+    pointer_tmp = tmp->next;
+    tmp->next = tmp->next->next;
+    free(pointer_tmp);
+  } else {
+    free(tmp->next);
+    tmp->next = NULL;
+    n->last = tmp;
+  }
+  n->length--;
+  return Result(false, v);
 }
 
 struct result set(struct doub_linkd *n, int index, int value) {
-    struct node *tmp = n->head;
-    for(int i = 0; i < index; i++) {
-        if(tmp->next  == NULL) return Result(true, -1);
-        tmp = tmp->next;
-    }
-    tmp->value = value; 
-    return Result(false, value);
+  struct node *tmp = n->head;
+  for (int i = 0; i < index; i++) {
+    if (tmp->next == NULL) return Result(true, -1);
+    tmp = tmp->next;
+  }
+  tmp->value = value;
+  return Result(false, value);
 }
 
 struct result get_index(struct doub_linkd *n, int index) {
@@ -160,5 +165,12 @@ struct doub_linkd DoubLinkd() {
   l.head = NULL;
   l.last = NULL;
   l.length = 0;
+  l.insert = &insert;
+  l.insert_many = &insert_many;
+  l.pop = &pop;
+  l.pop_index = &pop_index;
+  l.set = &set;
+  l.get_index = &get_index;
+  l.show = &show;
   return l;
 }

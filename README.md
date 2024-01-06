@@ -8,7 +8,7 @@ I just want to learn algorithm with some or many languages.
 - [x] c         [done]
 
 #### ~double_linked_list
-- [ ] c         [not]
+- [x] c         [await(search)]
 
 #### ~linked_list
 - [x] c         [done]
