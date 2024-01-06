@@ -121,6 +121,16 @@ struct result pop_index(struct doub_linkd *n, int index)
     return Result(false, v);
 }
 
+struct result set(struct doub_linkd *n, int index, int value) {
+    struct node *tmp = n->head;
+    for(int i = 0; i < index; i++) {
+        if(tmp->next  == NULL) return Result(true, -1);
+        tmp = tmp->next;
+    }
+    tmp->value = value; 
+    return Result(false, value);
+}
+
 struct result get_index(struct doub_linkd *n, int index) {
   if (n->head == NULL) return Result(true, 0);
   struct node *tmp = n->head;
