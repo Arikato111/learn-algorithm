@@ -8,5 +8,9 @@ int main(void) {
     doub_linkd arr = DoubLinkd();
     insert_many(&arr, (int[]){50, 20}, 2); 
     show(&arr);
+    result r = pop(&arr);
+    printf("---------\n");
+    show(&arr);
+    printf("value is %d\n", r.value);
     return 0;
 }
