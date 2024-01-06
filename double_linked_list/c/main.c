@@ -6,11 +6,12 @@
 
 int main(void) {
     doub_linkd arr = DoubLinkd();
-    insert_many(&arr, (int[]){50, 20}, 2); 
+    insert_many(&arr, (int[]){0 ,10, 20, 30, 40, 50, 60}, 7); 
     show(&arr);
-    result r = pop(&arr);
+    result r = pop_index(&arr, 3);
     printf("---------\n");
     show(&arr);
-    printf("value is %d\n", r.value);
+    printf("\tvalue is %d\n", r.value);
+    printf("\tlast = %d\n", arr.last->value);
     return 0;
 }

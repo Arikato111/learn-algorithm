@@ -64,6 +64,7 @@ struct result pop(struct doub_linkd *n) {
     v = n->head->value;
     free(n->head);
     n->head = NULL;
+    n->last = NULL;
     n->length--;
     return Result(false, v);
   }
@@ -71,8 +72,53 @@ struct result pop(struct doub_linkd *n) {
   v = tmp->next->value;
   free(tmp->next);
   tmp->next = NULL;
+  n->last = tmp;
   n->length--;
   return Result(false, v);
+}
+
+struct result pop_index(struct doub_linkd *n, int index)
+{
+    // check empty
+    if(n->head == NULL) return Result(true, -1);
+    int v;
+    struct node *pointer_tmp;
+    // check is head change head to index 1
+    if(index == 0) {
+        v = n->head->value;
+        if (n->head->next != NULL) {
+            // use pointer_tmp to keep address from pointer to free memory in next step
+           pointer_tmp = n->head;
+           n->head = n->head->next;
+           n->length--;
+           free(pointer_tmp);
+        }
+        else {
+            free(n->head);
+            n->head = NULL;
+        }
+        n->length--;
+        return Result(false, v);
+    }
+    struct node *tmp = n->head;
+    for (int i = 1; i < index; i++) {
+        if (tmp->next == NULL)
+            return Result(true, -1);
+        tmp = tmp->next;
+    }
+    v = tmp->next->value;
+    // is last index 
+    if(tmp->next->next != NULL) {
+        pointer_tmp = tmp->next;
+        tmp->next = tmp->next->next;
+        free(pointer_tmp);
+    } else {
+        free(tmp->next);
+        tmp->next = NULL;
+        n->last = tmp;
+    }
+    n->length--;
+    return Result(false, v);
 }
 
 struct result get_index(struct doub_linkd *n, int index) {
