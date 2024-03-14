@@ -27,12 +27,13 @@ fn quick_sort_linear(arr_ch: Arc<Mutex<Vec<u32>>>, init_work: [usize; 2]) {
     let arr_clone = arr_ch.clone();
     let mut arr = arr_clone.lock().unwrap();
     while let Some(w) = work_n.pop() {
-        if w[0] == w[1] {
-            continue;
-        }
         let (r1, r2) = quick_sort_node(&mut arr, w[0], w[1]);
-        work_n.push(r1);
-        work_n.push(r2);
+        if r1[0] != r1[1] {
+            work_n.push(r1);
+        }
+        if r2[0] != r2[1] {
+            work_n.push(r2);
+        }
     }
 }
 
