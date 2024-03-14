@@ -5,7 +5,8 @@ I just want to learn algorithm with some or many languages.
 ### status
 
 #### ~quick_sort
-- [x] Rust      [await(optimize::thread)]
+- [x] Rust      [done]
+- [x] Python    [done]
 
 #### ~binary_search_tree
 - [ ] c         [await(Balance)]
