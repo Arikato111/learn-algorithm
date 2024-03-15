@@ -4,21 +4,36 @@ I just want to learn algorithm with some or many languages.
 
 ### status
 
-#### ~quick_sort
-- [x] Rust      [done]
-- [x] Python    [done]
-- [x] Cpp       [done]
+#### Quick sort
 
-#### ~binary_search_tree
-- [ ] c         [await(Balance)]
-- [ ] c++       [not]
+| Lang   | Status |    Message     |
+| ------ | :----: | :------------: |
+| Rust   |  Done  |       No       |
+| Python |  Done  |       No       |
+| Cpp    |  Done  | Why it is slow |
 
-#### ~double_linked_list
-- [x] c         [await(search)]
+#### Binary search tree
 
-#### ~linked_list
-- [x] c         [done]
-- [x] python    [await(length)]
+| Lang | Status |    Message     |
+| ---- | :----: | :------------: |
+| C    |  Not   | await(Balance) |
+| Cpp  |  Not   |       No       |
 
-#### ~sudoku
-- [ ] c         [not]
+#### Double linked list
+
+| Lang | Status |    Message    |
+| ---- | :----: | :-----------: |
+| C    |  Done  | await(search) |
+
+#### Linked list
+
+| Lang   | Status |    Message    |
+| ------ | :----: | :-----------: |
+| C      |  Done  |      No       |
+| Python |  Done  | await(length) |
+
+#### Sudoku
+
+| Lang | Status | Message |
+| ---- | :----: | :-----: |
+| C    |  Not   |   No    |
