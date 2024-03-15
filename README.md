@@ -8,32 +8,32 @@ I just want to learn algorithm with some or many languages.
 
 | Lang   | Status |    Message     |
 | ------ | :----: | :------------: |
-| Rust   |  Done  |       No       |
-| Python |  Done  |       No       |
-| Cpp    |  Done  | Why it is slow |
+| Rust   |   ✅   |       No       |
+| Python |   ✅   |       No       |
+| Cpp    |   ✅   | Why it is slow |
 
 #### Binary search tree
 
 | Lang | Status |    Message     |
 | ---- | :----: | :------------: |
-| C    |  Not   | await(Balance) |
-| Cpp  |  Not   |       No       |
+| C    |   ❌   | await(Balance) |
+| Cpp  |   ❌   |       No       |
 
 #### Double linked list
 
 | Lang | Status |    Message    |
 | ---- | :----: | :-----------: |
-| C    |  Done  | await(search) |
+| C    |   ✅   | await(search) |
 
 #### Linked list
 
 | Lang   | Status |    Message    |
 | ------ | :----: | :-----------: |
-| C      |  Done  |      No       |
-| Python |  Done  | await(length) |
+| C      |   ✅   |      No       |
+| Python |   ✅   | await(length) |
 
 #### Sudoku
 
 | Lang | Status | Message |
 | ---- | :----: | :-----: |
-| C    |  Not   |   No    |
+| C    |   ❌   |   No    |
