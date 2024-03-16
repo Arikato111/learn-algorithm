@@ -13,13 +13,14 @@ fn main() {
         /*
          *  arr.lock().unwrap()[i] = random.gen::<u8>() as u32;
          *  gen with u8 and change to u32 make it slower.
+         *  ยิ่งมีข้อมูลซ้ำเยอะ ยิ่งทำให้ช้าลง จึงใช้ u32 แทน u8 เพื่อลดจำนวนข้อมูลซ้ำ
          */
         arr.lock().unwrap()[i] = random.gen::<u32>();
     }
     let s1 = Instant::now(); // time counter
 
-    // quick_sort_normal(&mut arr.clone().lock().unwrap());
-    quick_sort(&arr,4);
+    quick_sort_normal(&mut arr.clone().lock().unwrap());
+    // quick_sort(&arr,4);
     /*
      * array 10^8 elements.
      * quick sort 1 thread: 10s
