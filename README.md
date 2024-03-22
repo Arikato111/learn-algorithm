@@ -6,11 +6,11 @@ I just want to learn algorithm with some or many languages.
 
 #### Quick sort
 
-| Lang   | Status | Message |
-| ------ | :----: | :-----: |
-| Rust   |   ✅   |   No    |
-| Python |   ✅   |   No    |
-| Cpp    |   ✅   |   No    |
+| Lang   | Status |     Message     |
+| ------ | :----: | :-------------: |
+| Rust   |   ✅   | await(optimize) |
+| Python |   ✅   |       No        |
+| Cpp    |   ✅   |       No        |
 
 #### Binary search tree
 

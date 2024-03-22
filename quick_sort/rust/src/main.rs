@@ -3,7 +3,7 @@ use std::{
     sync::{Arc, Mutex},
     time::Instant,
 };
-use thread_sort::{normal_sort::quick_sort_normal, sort::quick_sort};
+use thread_sort::{normal_sort::quick_sort_normal, sort::quick_sort, sort_split};
 
 const ARR_LEN: usize = 100_000_000;
 fn main() {
@@ -19,7 +19,8 @@ fn main() {
     }
     let s1 = Instant::now(); // time counter
 
-    quick_sort_normal(&mut arr.clone().lock().unwrap());
+    sort_split::quick_sort(&mut arr.clone().lock().unwrap());
+    // quick_sort_normal(&mut arr.clone().lock().unwrap());
     // quick_sort(&arr,4);
     /*
      * array 10^8 elements.
